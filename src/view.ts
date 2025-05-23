@@ -12,7 +12,6 @@ function init() {
   canvas.style.height = "100%";
 
   _gfx = canvas.getContext("2d")!;
-
   new ResizeObserver(onResize).observe(canvas, { box: "content-box" });
 
   // force a reflow to immediately invoke resize callback

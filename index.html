@@ -1,13 +1,50 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="background-color: #0c241c">
     <head>
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Drone Fleet</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <body>
+        <script type="module" src="./src/components.js"></script>
+        <script type="module" src="./src/main.ts"></script>
         <canvas id="app"></canvas>
-        <script type="module" src="/src/main.ts"></script>
+        <div id="ui">
+            <div id="header"><div class="title">Drone Fleet</div></div>
+            <div id="content">
+                <div class="column side-column">
+                    <div class="panel fleet-panel"></div>
+                    <div class="panel build-panel"></div>
+                </div>
+                <div class="column center-column">
+                    <div class="panel sim-panel"></div>
+                    <div class="panel build-grid-panel">
+                        <div class="build-grid-holder">
+                            <build-grid></build-grid>
+                        </div>
+                    </div>
+                </div>
+                <div class="column side-column">
+                    <div class="panel drone-panel"></div>
+                    <div class="panel selection-panel"></div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="version">pre-alpha 0.1.0</div>
+                <div class="copyright">
+                    &copy; 2025
+                    <a href="https://eswaidner.com" class="clickable"
+                        >Ethan Swaidner</a
+                    >
+                </div>
+            </div>
+        </div>
     </body>
 </html>

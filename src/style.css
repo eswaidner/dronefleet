@@ -5,6 +5,23 @@
     margin: 0;
     padding: 0;
     font-weight: normal;
+    font-family: "Source Code Pro", monospace;
+}
+
+html {
+    background-color: unset !important;
+}
+
+:root {
+    --light: #26bca3;
+    --mid-light: #377063;
+    --mid: #0e3831;
+    --dark: #011616;
+    --bg: #0c241c;
+}
+
+a {
+    color: unset;
 }
 
 ol,
@@ -27,7 +44,145 @@ body {
     overflow: hidden;
 }
 
+.clickable {
+    transition: opacity 100ms;
+}
+
+.clickable:hover {
+    opacity: 0.7;
+}
+
+.clickable:active {
+    opacity: 0.5;
+}
+
 #app {
     width: 100%;
     height: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+#ui {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    min-height: 40px;
+    background-color: var(--dark);
+    border-bottom: 1px solid var(--mid-light);
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+#footer {
+    min-height: 30px;
+    background-color: var(--dark);
+    border-top: 1px solid var(--mid-light);
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+#content {
+    flex-grow: 1;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    column-gap: 20px;
+}
+
+.title {
+    color: var(--light);
+}
+
+.version {
+    color: var(--light);
+    font-size: 0.85rem;
+    flex-grow: 1;
+}
+
+.copyright {
+    color: var(--light);
+    font-size: 0.85rem;
+}
+
+.column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.side-column {
+    width: 25%;
+}
+
+.center-column {
+    flex-grow: 1;
+}
+
+.panel {
+    position: relative;
+    border: 1px solid var(--mid-light);
+    border-radius: 3px;
+    background-color: var(--dark);
+}
+
+.fleet-panel {
+    height: 20%;
+}
+
+.build-panel {
+    flex-grow: 1;
+}
+
+.sim-panel {
+    height: 5%;
+}
+
+.build-grid-panel {
+    background-color: unset;
+    border: unset;
+    flex-grow: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.build-grid-holder {
+    width: 100%;
+    flex-grow: 1;
+    align-content: center;
+}
+
+build-grid {
+    display: block;
+    margin: auto;
+    position: relative;
+    border: 2px solid var(--dark);
+    border-radius: 3px;
+    max-width: 700px;
+    aspect-ratio: 1;
+}
+
+.grid-line {
+    border: 0px solid var(--dark);
+    position: absolute;
+}
+
+.drone-panel {
+    flex-grow: 1;
+}
+
+.selection-panel {
+    height: 15%;
 }
