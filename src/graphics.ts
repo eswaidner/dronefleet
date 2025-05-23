@@ -1,2 +1,1 @@
-//TODO partgroup rendering
-//TODO asteroid rendering
+//TODO shape drawing

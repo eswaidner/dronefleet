@@ -1,0 +1,11 @@
+{
+  "parts": [
+    {
+      "name": "CPU",
+      "description": "The core of a drone",
+      "price": 0,
+      "maxHitpoints": 100,
+      "fields": []
+    }
+  ]
+}

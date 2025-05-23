@@ -1,4 +1,5 @@
 import type { Vec2, Vec4 } from "wgpu-matrix";
+import type { Attribute } from "./state";
 
 interface Fleet {
   id: string;
@@ -38,7 +39,7 @@ interface PartAction {
   // update cb
 }
 
-interface Drone {
+interface Drone extends Attribute {
   fleet: Fleet;
   idx: number;
   parts: Part[];
@@ -60,7 +61,7 @@ interface Instruction {
   args: Value[];
 }
 
-type Opcode = "add";
+type Opcode = "add"; //TODO remaining ops
 
 type Value = Constant | Reference;
 
