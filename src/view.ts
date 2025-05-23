@@ -1,11 +1,10 @@
-import { mat3, vec2, type Vec2 } from "wgpu-matrix";
-import { Transform } from "./transforms";
+import type { Vec2 } from "./vec2";
+import { vec2 } from "./zen";
 
 let _gfx: CanvasRenderingContext2D;
-const _transform: Transform = new Transform({ pivot: vec2.create(0.5, 0.5) });
 let _screenSize: Vec2 = vec2.create();
-let _renderSize: Vec2 = vec2.create();
-let _zoom: number = 0.01;
+const _position: Vec2 = vec2.create();
+let _pixelsPerUnit: number = 50;
 
 function init() {
   const canvas = document.querySelector("#app")! as HTMLCanvasElement;
@@ -24,51 +23,34 @@ export function gfx(): CanvasRenderingContext2D {
   return _gfx;
 }
 
-export function transform(): Transform {
-  return _transform;
+export function position(): Vec2 {
+  return vec2.clone(_position);
 }
 
 export function screenSize(): Vec2 {
   return vec2.clone(_screenSize);
 }
 
-export function renderSize(): Vec2 {
-  return vec2.clone(_renderSize);
+export function pixelsPerUnit(): number {
+  return _pixelsPerUnit;
 }
 
-export function zoom(): number {
-  return _zoom;
-}
-
-export function setZoom(zoom: number) {
-  _zoom = zoom;
-}
-
-export function updateScale() {
-  _transform.scale[0] = _zoom * _renderSize[0];
-  _transform.scale[1] = _zoom * _renderSize[1];
+export function setPixelsPerUnit(pixels: number) {
+  _pixelsPerUnit = pixels;
 }
 
 export function screenToWorld(screenPos: Vec2): Vec2 {
   // normalize coordinates
-  const spos = vec2.clone(screenPos);
-  spos[0] /= _screenSize[0];
-  spos[1] /= _screenSize[1];
+  let pos = vec2.clone(screenPos);
+  pos = vec2.scale(pos, 1 / _pixelsPerUnit);
 
-  return vec2.transformMat3(spos, _transform.trs());
+  return vec2.add(pos, _position);
 }
 
 export function worldToScreen(worldPos: Vec2): Vec2 {
-  const screenPos = vec2.create();
-  const trs = _transform.trs();
-  mat3.invert(trs, trs);
-  vec2.transformMat3(worldPos, trs, screenPos);
-
-  // scale coordinates
-  screenPos[0] *= _screenSize[0];
-  screenPos[1] *= _screenSize[1];
-
-  return screenPos;
+  let pos = vec2.sub(worldPos, _position);
+  pos = vec2.scale(pos, _pixelsPerUnit);
+  return pos;
 }
 
 function onResize(entries: ResizeObserverEntry[]) {
@@ -78,11 +60,8 @@ function onResize(entries: ResizeObserverEntry[]) {
     const displayWidth = Math.round(size.inlineSize / dpr);
     const displayHeight = Math.round(size.blockSize / dpr);
 
-    _renderSize[0] = displayWidth;
-    _renderSize[1] = displayHeight;
-    _screenSize[0] = displayWidth / dpr;
-    _screenSize[1] = displayHeight / dpr;
-    updateScale();
+    _screenSize.x = displayWidth;
+    _screenSize.y = displayHeight;
 
     const needResize =
       _gfx.canvas.width !== displayWidth ||

@@ -1,13 +1,10 @@
 import "./style.css";
-import { Input, Schedule, View, Zen } from "./zen";
+import { Schedule, View, Zen } from "./zen";
 
 Zen.start();
 
 Schedule.onSignal(Schedule.update, {
   once: () => {
-    const worldPos = Input.pointerWorldPos();
-    // console.log(worldPos[0], worldPos[1]);
-
     draw();
   },
 });
@@ -19,7 +16,9 @@ function draw() {
       ctx.fillStyle = `rgb(${Math.floor(255 - 42.5 * i)} ${Math.floor(
         255 - 42.5 * j,
       )} 0)`;
-      ctx.fillRect(j * 25, i * 25, 25, 25);
+
+      const ppu = View.pixelsPerUnit();
+      ctx.fillRect(j * ppu, i * ppu, ppu, ppu);
     }
   }
 }

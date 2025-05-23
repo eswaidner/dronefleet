@@ -1,5 +1,5 @@
-import type { Vec2, Vec4 } from "wgpu-matrix";
 import type { Attribute } from "./state";
+import type { Vec2 } from "./vec2";
 
 interface Fleet {
   id: string;
@@ -53,7 +53,7 @@ interface Part {
 
 interface Field {
   name: string;
-  value: Vec4;
+  value: number;
 }
 
 interface Instruction {

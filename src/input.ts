@@ -1,6 +1,5 @@
-import { Schedule, View } from "./zen";
+import { Schedule, vec2, View, type Vec2 } from "./zen";
 import { update } from "./schedule";
-import { vec2, type Vec2 } from "wgpu-matrix";
 
 const downKeys: Set<string> = new Set();
 let keyPressesPrev: Set<string> = new Set();
@@ -38,8 +37,8 @@ function init() {
 
   View.gfx().canvas.addEventListener("pointermove", (e) => {
     const p = e as PointerEvent;
-    _pointerScreenPos[0] = p.offsetX;
-    _pointerScreenPos[1] = View.screenSize()[1] - p.offsetY;
+    _pointerScreenPos.x = p.offsetX;
+    _pointerScreenPos.y = View.screenSize().y - p.offsetY;
     _pointerWorldPos = View.screenToWorld(_pointerScreenPos);
   });
 }

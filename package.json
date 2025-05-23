@@ -13,6 +13,6 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "wgpu-matrix": "^3.4.0"
+    "vite-bundle-visualizer": "^1.2.1"
   }
 }
