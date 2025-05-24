@@ -4,25 +4,36 @@
       "name": "CPU",
       "description": "The core of a drone",
       "price": 0,
-      "maxHitpoints": 100,
-      "fields": [],
-      "params": {}
+      "maxHitpoints": 100
     },
     {
       "name": "Block",
       "description": "Chassis block",
       "price": 10,
-      "maxHitpoints": 100,
-      "fields": [],
-      "params": {}
+      "maxHitpoints": 100
     },
     {
       "name": "Slope",
       "description": "Chassis slope",
       "price": 10,
-      "maxHitpoints": 100,
-      "fields": [],
-      "params": {}
+      "maxHitpoints": 100
+    },
+    {
+      "name": "Thruster",
+      "description": "Applies a directional force",
+      "price": 50,
+      "maxHitpoints": "50",
+      "fields": {
+        "throttle": {
+          "description": "Force magnitude scalar",
+          "range": [0, 1],
+          "mutable": true
+        },
+        "maxEnergyDraw": {
+          "description": "Energy draw at full throttle",
+          "mutable": false
+        }
+      }
     }
   ]
 }
