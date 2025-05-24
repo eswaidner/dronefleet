@@ -1,5 +1,4 @@
 import { Schedule, vec2, View, type Vec2 } from "./zen";
-import { update } from "./schedule";
 
 const downKeys: Set<string> = new Set();
 let keyPressesPrev: Set<string> = new Set();
@@ -10,7 +9,7 @@ let _pointerScreenPos: Vec2 = vec2.create();
 let _pointerWorldPos: Vec2 = vec2.create();
 
 function init() {
-  const inputSignal = Schedule.signalBefore(update);
+  const inputSignal = Schedule.signalBefore(Schedule.update);
   Schedule.onSignal(inputSignal, { once: () => updateInput() });
 
   window.onkeydown = (e) => {
@@ -44,15 +43,15 @@ function init() {
 }
 
 export function isKeyDown(key: string): boolean {
-  return downKeys.has(key);
+  return downKeys.has(key.toLowerCase());
 }
 
 export function wasKeyPressed(key: string): boolean {
-  return keyPressesPrev.has(key);
+  return keyPressesPrev.has(key.toLowerCase());
 }
 
 export function wasKeyReleased(key: string): boolean {
-  return keyReleasesPrev.has(key);
+  return keyReleasesPrev.has(key.toLowerCase());
 }
 
 export function pointerScreenPos(): Vec2 {

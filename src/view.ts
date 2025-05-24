@@ -23,7 +23,7 @@ export function gfx(): CanvasRenderingContext2D {
 }
 
 export function position(): Vec2 {
-  return vec2.clone(_position);
+  return _position;
 }
 
 export function screenSize(): Vec2 {

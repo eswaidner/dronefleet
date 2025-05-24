@@ -12,6 +12,10 @@ html {
     background-color: unset !important;
 }
 
+button {
+    all: unset;
+}
+
 :root {
     --light: #26bca3;
     --mid-light: #377063;
@@ -50,10 +54,18 @@ body {
 
 .clickable:hover {
     opacity: 0.7;
+    cursor: pointer;
 }
 
 .clickable:active {
     opacity: 0.5;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 7px;
 }
 
 #app {
@@ -80,6 +92,15 @@ body {
     padding: 0px 20px;
 }
 
+.title {
+    flex-grow: 1;
+    color: var(--light);
+}
+
+.header-buttons {
+    display: flex;
+}
+
 #footer {
     min-height: 30px;
     background-color: var(--dark);
@@ -96,10 +117,6 @@ body {
     position: relative;
     display: flex;
     column-gap: 20px;
-}
-
-.title {
-    color: var(--light);
 }
 
 .version {
@@ -164,7 +181,7 @@ body {
     align-content: center;
 }
 
-build-grid {
+/* build-grid {
     display: block;
     margin: auto;
     position: relative;
@@ -172,12 +189,12 @@ build-grid {
     border-radius: 3px;
     max-width: 700px;
     aspect-ratio: 1;
-}
+} */
 
-.grid-line {
+/* .grid-line {
     border: 0px solid var(--dark);
     position: absolute;
-}
+} */
 
 .drone-panel {
     flex-grow: 1;

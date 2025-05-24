@@ -17,7 +17,17 @@
         <script type="module" src="./src/main.ts"></script>
         <canvas id="app"></canvas>
         <div id="ui">
-            <div id="header"><div class="title">Drone Fleet</div></div>
+            <div id="header">
+                <div class="title">Drone Fleet</div>
+                <div class="header-buttons">
+                    <button class="clickable icon" id="info-btn">
+                        <img src="./icons/info.svg" />
+                    </button>
+                    <button class="clickable icon" id="settings-btn">
+                        <img src="./icons/settings.svg" />
+                    </button>
+                </div>
+            </div>
             <div id="content">
                 <div class="column side-column">
                     <div class="panel fleet-panel"></div>
@@ -25,11 +35,6 @@
                 </div>
                 <div class="column center-column">
                     <div class="panel sim-panel"></div>
-                    <div class="panel build-grid-panel">
-                        <div class="build-grid-holder">
-                            <build-grid></build-grid>
-                        </div>
-                    </div>
                 </div>
                 <div class="column side-column">
                     <div class="panel drone-panel"></div>

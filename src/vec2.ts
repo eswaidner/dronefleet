@@ -39,6 +39,13 @@ export function mag(v: Vec2): number {
   return Math.sqrt(sqMag(v));
 }
 
+export function normalize(a: Vec2): Vec2 {
+  const len = mag(a);
+  if (len === 0) return create();
+
+  return create(a.x / len, a.y / len);
+}
+
 export function dot(a: Vec2, b: Vec2): number {
   return a.x * b.x + a.y * b.y;
 }
