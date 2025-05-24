@@ -21,6 +21,7 @@ button {
     --mid-light: #377063;
     --mid: #0e3831;
     --dark: #011616;
+    --panel: #011616cc;
     --bg: #0c241c;
 }
 
@@ -92,7 +93,7 @@ body {
 
 #header {
     min-height: 40px;
-    background-color: var(--dark);
+    background-color: var(--panel);
     border-bottom: 1px solid var(--mid-light);
     display: flex;
     align-items: center;
@@ -110,7 +111,7 @@ body {
 
 #footer {
     min-height: 30px;
-    background-color: var(--dark);
+    background-color: var(--panel);
     border-top: 1px solid var(--mid-light);
     display: flex;
     align-items: center;
@@ -156,7 +157,7 @@ body {
     position: relative;
     border: 1px solid var(--mid-light);
     border-radius: 3px;
-    background-color: var(--dark);
+    background-color: var(--panel);
 }
 
 .fleet-panel {

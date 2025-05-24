@@ -23,6 +23,8 @@ function render() {
 
   const stars = State.query({ include: [Star, Position] });
   for (const s of stars) drawStar(s);
+
+  drawGrid(1, 9);
 }
 
 function createStars(qty: number) {
@@ -59,6 +61,50 @@ function drawStar(e: Entity) {
 
   ctx.fillStyle = "white";
   ctx.fillRect(screenPos.x, screenPos.y, star.size, star.size);
+}
+
+function drawGrid(cellSize: number, size: number) {
+  const ctx = View.gfx();
+  ctx.strokeStyle = "#37706330";
+
+  const gridSize = cellSize * size;
+  const halfGridSize = 0.5 * gridSize;
+  const gridSizePx = gridSize * View.pixelsPerUnit();
+  const origin = vec2.create(-halfGridSize, -halfGridSize);
+  const screenOrigin = View.worldToScreen(origin);
+
+  // vertical lines
+  for (let x = 0; x <= size; x++) {
+    const startPos = View.worldToScreen(
+      vec2.add(origin, vec2.create(x * cellSize, 0)),
+    );
+    const endPos = View.worldToScreen(
+      vec2.add(origin, vec2.create(x * cellSize, size * cellSize)),
+    );
+
+    ctx.beginPath();
+    ctx.moveTo(startPos.x, startPos.y);
+    ctx.lineTo(endPos.x, endPos.y);
+    ctx.stroke();
+  }
+
+  // horizontal lines
+  for (let y = 0; y <= size; y++) {
+    const startPos = View.worldToScreen(
+      vec2.add(origin, vec2.create(0, y * cellSize)),
+    );
+    const endPos = View.worldToScreen(
+      vec2.add(origin, vec2.create(size * cellSize, y * cellSize)),
+    );
+
+    ctx.beginPath();
+    ctx.moveTo(startPos.x, startPos.y);
+    ctx.lineTo(endPos.x, endPos.y);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = "#377063f0";
+  ctx.strokeRect(screenOrigin.x, screenOrigin.y, gridSizePx, gridSizePx);
 }
 
 function drawPartGroup() {}
