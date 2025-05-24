@@ -7,7 +7,6 @@ import {
   vec2,
   View,
   type Entity,
-  type TaskContext,
 } from "./zen";
 import { Movement, Position } from "./movement";
 

@@ -48,7 +48,14 @@ function move(e: Entity, ctx: TaskContext) {
   movement.velocity = vec2.add(movement.velocity, accel);
   movement.velocity = vec2.sub(movement.velocity, decel);
 
-  //TODO limit velocity to optional max speed
+  // limit velocity to max speed
+  if (movement.maxSpeed) {
+    const speed = vec2.mag(movement.velocity);
+    movement.velocity = vec2.scale(
+      vec2.normalize(movement.velocity),
+      Math.min(speed, movement.maxSpeed),
+    );
+  }
 
   // apply velocity
   const moveDelta = vec2.scale(movement.velocity, ctx.deltaTime);

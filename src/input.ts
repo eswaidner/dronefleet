@@ -35,9 +35,7 @@ function init() {
   });
 
   View.app().addEventListener("pointermove", (e) => {
-    const p = e as PointerEvent;
     const pos = getPointerPosition(e, View.app());
-
     _pointerScreenPos.x = pos.x;
     _pointerScreenPos.y = View.screenSize().y - pos.y;
     _pointerWorldPos = View.screenToWorld(_pointerScreenPos);

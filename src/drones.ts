@@ -67,8 +67,11 @@ type Value = Constant | Reference;
 
 interface Constant {
   type: "constant";
+  value: number;
 }
 
 interface Reference {
   type: "reference";
+  partIndex: Vec2;
+  fieldName: string;
 }

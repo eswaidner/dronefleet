@@ -1,13 +1,11 @@
 import { initCamera } from "./camera";
 import { initMovement } from "./movement";
 import "./style.css";
-import { Input, Schedule, State, vec2, View, Zen } from "./zen";
+import { Schedule, vec2, View, Zen } from "./zen";
 
 Zen.start();
 initCamera();
 initMovement();
-
-View.gfx().canvas.style.backgroundColor = "#0a211c";
 
 Schedule.onSignal(Schedule.update, {
   once: () => {
