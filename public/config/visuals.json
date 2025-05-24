@@ -1,0 +1,43 @@
+{
+  "parts": [
+    {
+      "name": "Block",
+      "top": [
+        {
+          "type": "path",
+          "points": [
+            [0, 1],
+            [1, 1]
+          ]
+        }
+      ],
+      "right": [
+        {
+          "type": "path",
+          "points": [
+            [1, 1],
+            [1, 0]
+          ]
+        }
+      ],
+      "bottom": [
+        {
+          "type": "path",
+          "points": [
+            [1, 0],
+            [0, 0]
+          ]
+        }
+      ],
+      "left": [
+        {
+          "type": "path",
+          "points": [
+            [0, 0],
+            [0, 1]
+          ]
+        }
+      ]
+    }
+  ]
+}

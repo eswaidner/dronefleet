@@ -24,7 +24,7 @@ function render() {
   const stars = State.query({ include: [Star, Position] });
   for (const s of stars) drawStar(s);
 
-  drawGrid(1, 9);
+  drawGrid(1, 1001);
 }
 
 function createStars(qty: number) {
@@ -69,9 +69,14 @@ function drawGrid(cellSize: number, size: number) {
 
   const gridSize = cellSize * size;
   const halfGridSize = 0.5 * gridSize;
-  const gridSizePx = gridSize * View.pixelsPerUnit();
+  const cellSizePx = cellSize * View.pixelsPerUnit();
   const origin = vec2.create(-halfGridSize, -halfGridSize);
-  const screenOrigin = View.worldToScreen(origin);
+
+  const buildGridSize = 9;
+  const halfBuildGrid = buildGridSize * 0.5;
+  const buildGridCenter = View.worldToScreen(
+    vec2.create(-halfBuildGrid, -halfBuildGrid),
+  );
 
   // vertical lines
   for (let x = 0; x <= size; x++) {
@@ -104,7 +109,8 @@ function drawGrid(cellSize: number, size: number) {
   }
 
   ctx.strokeStyle = "#377063f0";
-  ctx.strokeRect(screenOrigin.x, screenOrigin.y, gridSizePx, gridSizePx);
+  const buildSize = cellSizePx * buildGridSize;
+  ctx.strokeRect(buildGridCenter.x, buildGridCenter.y, buildSize, buildSize);
 }
 
 function drawPartGroup() {}

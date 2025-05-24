@@ -5,7 +5,24 @@
       "description": "The core of a drone",
       "price": 0,
       "maxHitpoints": 100,
-      "fields": []
+      "fields": [],
+      "params": {}
+    },
+    {
+      "name": "Block",
+      "description": "Chassis block",
+      "price": 10,
+      "maxHitpoints": 100,
+      "fields": [],
+      "params": {}
+    },
+    {
+      "name": "Slope",
+      "description": "Chassis slope",
+      "price": 10,
+      "maxHitpoints": 100,
+      "fields": [],
+      "params": {}
     }
   ]
 }

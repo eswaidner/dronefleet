@@ -26,6 +26,7 @@ interface PartDescriptor {
   activeAction?: PartAction;
   passiveAction?: PartAction;
   fields: FieldDescriptor[];
+  params: object;
 }
 
 interface FieldDescriptor {
