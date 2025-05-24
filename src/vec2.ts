@@ -7,6 +7,14 @@ export function create(x: number = 0, y: number = 0): Vec2 {
   return { x, y };
 }
 
+export function randomDir(): Vec2 {
+  const rand = sub(
+    scale(create(Math.random(), Math.random()), 2),
+    create(1, 1),
+  );
+  return normalize(rand);
+}
+
 export function clone(v: Vec2): Vec2 {
   return create(v.x, v.y);
 }
