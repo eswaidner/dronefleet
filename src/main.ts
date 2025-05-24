@@ -1,7 +1,7 @@
 import { initCamera } from "./camera";
 import { initMovement } from "./movement";
 import "./style.css";
-import { Schedule, State, vec2, View, Zen } from "./zen";
+import { Input, Schedule, State, vec2, View, Zen } from "./zen";
 
 Zen.start();
 initCamera();
@@ -20,7 +20,7 @@ function draw() {
 
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-  const pos = View.worldToScreen(vec2.create(5, 5));
+  const pos = View.worldToScreen(vec2.create(-0.5, -0.5));
 
   const ppu = View.pixelsPerUnit();
   ctx.strokeStyle = "#75b3ff";

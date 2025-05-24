@@ -15,39 +15,41 @@
     <body>
         <script type="module" src="./src/components.js"></script>
         <script type="module" src="./src/main.ts"></script>
-        <canvas id="app"></canvas>
-        <div id="ui">
-            <div id="header">
-                <div class="title">Drone Fleet</div>
-                <div class="header-buttons">
-                    <button class="clickable icon" id="info-btn">
-                        <img src="./icons/info.svg" />
-                    </button>
-                    <button class="clickable icon" id="settings-btn">
-                        <img src="./icons/settings.svg" />
-                    </button>
+        <div id="app">
+            <canvas id="app-canvas"></canvas>
+            <div id="ui">
+                <div id="header">
+                    <div class="title">Drone Fleet</div>
+                    <div class="header-buttons">
+                        <button class="clickable icon" id="info-btn">
+                            <img src="./icons/info.svg" />
+                        </button>
+                        <button class="clickable icon" id="settings-btn">
+                            <img src="./icons/settings.svg" />
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div id="content">
-                <div class="column side-column">
-                    <div class="panel fleet-panel"></div>
-                    <div class="panel build-panel"></div>
+                <div id="content">
+                    <div class="column side-column">
+                        <div class="panel fleet-panel"></div>
+                        <div class="panel build-panel"></div>
+                    </div>
+                    <div class="column center-column">
+                        <div class="panel sim-panel"></div>
+                    </div>
+                    <div class="column side-column">
+                        <div class="panel drone-panel"></div>
+                        <div class="panel selection-panel"></div>
+                    </div>
                 </div>
-                <div class="column center-column">
-                    <div class="panel sim-panel"></div>
-                </div>
-                <div class="column side-column">
-                    <div class="panel drone-panel"></div>
-                    <div class="panel selection-panel"></div>
-                </div>
-            </div>
-            <div id="footer">
-                <div class="version">pre-alpha 0.1.0</div>
-                <div class="copyright">
-                    &copy; 2025
-                    <a href="https://eswaidner.com" class="clickable"
-                        >Ethan Swaidner</a
-                    >
+                <div id="footer">
+                    <div class="version">pre-alpha 0.1.0</div>
+                    <div class="copyright">
+                        &copy; 2025
+                        <a href="https://eswaidner.com" class="clickable"
+                            >Ethan Swaidner</a
+                        >
+                    </div>
                 </div>
             </div>
         </div>

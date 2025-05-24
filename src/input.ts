@@ -34,10 +34,12 @@ function init() {
     if (document.visibilityState === "hidden") downKeys.clear();
   });
 
-  View.gfx().canvas.addEventListener("pointermove", (e) => {
+  View.app().addEventListener("pointermove", (e) => {
     const p = e as PointerEvent;
-    _pointerScreenPos.x = p.offsetX;
-    _pointerScreenPos.y = View.screenSize().y - p.offsetY;
+    const pos = getPointerPosition(e, View.app());
+
+    _pointerScreenPos.x = pos.x;
+    _pointerScreenPos.y = View.screenSize().y - pos.y;
     _pointerWorldPos = View.screenToWorld(_pointerScreenPos);
   });
 }
@@ -72,6 +74,13 @@ function updateInput() {
   keyReleasesPrev = keyReleasesNext;
   keyPressesNext = kpp;
   keyReleasesNext = krp;
+}
+
+function getPointerPosition(e: PointerEvent, baseElement: HTMLElement): Vec2 {
+  const rect = baseElement.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  return vec2.create(x, y);
 }
 
 init();

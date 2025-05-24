@@ -1,13 +1,16 @@
 import type { Vec2 } from "./vec2";
 import { vec2 } from "./zen";
 
+let _app: HTMLDivElement;
 let _gfx: CanvasRenderingContext2D;
 let _screenSize: Vec2 = vec2.create();
 const _position: Vec2 = vec2.create();
 let _pixelsPerUnit: number = 50;
 
 function init() {
-  const canvas = document.querySelector("#app")! as HTMLCanvasElement;
+  _app = document.querySelector("#app")! as HTMLDivElement;
+
+  const canvas = document.querySelector("#app-canvas")! as HTMLCanvasElement;
   canvas.style.width = "100%";
   canvas.style.height = "100%";
 
@@ -16,6 +19,10 @@ function init() {
 
   // force a reflow to immediately invoke resize callback
   window.getComputedStyle(canvas).width;
+}
+
+export function app(): HTMLDivElement {
+  return _app;
 }
 
 export function gfx(): CanvasRenderingContext2D {
@@ -39,16 +46,15 @@ export function setPixelsPerUnit(pixels: number) {
 }
 
 export function screenToWorld(screenPos: Vec2): Vec2 {
-  // normalize coordinates
-  let pos = vec2.clone(screenPos);
+  let pos = vec2.sub(screenPos, vec2.scale(_screenSize, 0.5));
   pos = vec2.scale(pos, 1 / _pixelsPerUnit);
-
   return vec2.add(pos, _position);
 }
 
 export function worldToScreen(worldPos: Vec2): Vec2 {
   let pos = vec2.sub(worldPos, _position);
   pos = vec2.scale(pos, _pixelsPerUnit);
+  pos = vec2.add(pos, vec2.scale(_screenSize, 0.5));
   return pos;
 }
 
