@@ -1,8 +1,6 @@
-import { PartGroupRenderer, type VisualElement } from "./graphics";
-import { Position } from "./movement";
+import { type VisualElement } from "./graphics";
 import { Attribute } from "./state";
 import type { Vec2 } from "./vec2";
-import { State, vec2 } from "./zen";
 
 export const parts: Record<string, PartDescriptor> = {};
 
@@ -15,25 +13,6 @@ export async function initDrones() {
     parts[part.name] = part as PartDescriptor;
     parts[part.name].visuals = visualConfig[part.name] as PartVisuals;
   }
-
-  const test = State.createEntity();
-  State.addAttribute(
-    test,
-    PartGroupRenderer,
-    new PartGroupRenderer({
-      parts: [
-        [
-          { id: "Slope", orientation: 0 },
-          { id: "Slope", orientation: 2 },
-        ],
-        [
-          { id: "Block", orientation: 0 },
-          { id: "Slope", orientation: 1 },
-        ],
-      ],
-    }),
-  );
-  State.addAttribute(test, Position, new Position());
 }
 
 interface Fleet {
@@ -48,8 +27,17 @@ interface DroneDescriptor {
   program: Instruction[];
 }
 
-export interface PartGroup {
-  parts: PlacedPart[][];
+export class PartGroup {
+  parts: (PlacedPart | undefined)[][];
+
+  constructor() {
+    this.parts = [];
+    for (let y = 0; y < 9; y++) {
+      const row: (PlacedPart | undefined)[] = [];
+      for (let x = 0; x < 9; x++) row.push();
+      this.parts.push(row);
+    }
+  }
 }
 
 export interface PlacedPart {

@@ -48,6 +48,7 @@ export function setPixelsPerUnit(pixels: number) {
 export function screenToWorld(screenPos: Vec2): Vec2 {
   let pos = vec2.sub(screenPos, vec2.scale(_screenSize, 0.5));
   pos = vec2.scale(pos, 1 / _pixelsPerUnit);
+  pos.y = -pos.y;
   return vec2.add(pos, _position);
 }
 

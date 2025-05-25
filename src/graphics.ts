@@ -1,5 +1,6 @@
+import { hoveredCell } from "./building";
 import { parts, type PartGroup, type PlacedPart } from "./drones";
-import { degToRad, radToDeg } from "./math";
+import { degToRad } from "./math";
 import { Position } from "./movement";
 import {
   Attribute,
@@ -20,9 +21,15 @@ function init() {
   createStars(400);
 }
 
-export type VisualElement = Path;
+export type VisualElement = Path | Poly;
+
 export interface Path {
   type: "path";
+  points: Vec2[];
+}
+
+export interface Poly {
+  type: "poly";
   points: Vec2[];
 }
 
@@ -46,6 +53,8 @@ function render() {
 
   const partGroups = State.query({ include: [PartGroupRenderer, Position] });
   for (const p of partGroups) drawPartGroup(p);
+
+  drawBuildEffects();
 }
 
 function createStars(qty: number) {
@@ -80,7 +89,7 @@ function drawStar(e: Entity) {
   let screenPos = View.worldToScreen(pos.value);
   screenPos = vec2.scale(screenPos, 1 / star.depth);
 
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "#26bca3";
   ctx.fillRect(screenPos.x, screenPos.y, star.size, star.size);
 }
 
@@ -145,23 +154,22 @@ function drawPartGroup(e: Entity) {
   const renderer = State.getAttribute<PartGroupRenderer>(e, PartGroupRenderer)!;
   const pos = State.getAttribute<Position>(e, Position)!;
 
-  const ctx = View.gfx();
+  const stroke = "#4981dc";
+  const fill = "#13334aa0";
 
   // render parts
   for (let y = 0; y < renderer.group.parts.length; y++) {
     const row = renderer.group.parts[y];
     for (let x = 0; x < row.length; x++) {
       const part = row[x];
+      if (!part) continue;
 
       const v = parts[part.id].visuals;
       const cellPos = vec2.add(pos.value, vec2.create(x - 4.5, y - 4.5));
       const pivot = vec2.create(0.5, 0.5);
       const rot = degToRad(part.orientation * 90);
 
-      ctx.strokeStyle = "#ffffff";
-      ctx.beginPath();
-
-      if (v.misc) drawVisualElements(v.misc, cellPos, pivot, rot);
+      if (v.misc) drawVisualElements(v.misc, cellPos, pivot, rot, stroke, fill);
 
       // draw sides
       const sideGroups = [v.top, v.right, v.bottom, v.left];
@@ -173,11 +181,9 @@ function drawPartGroup(e: Entity) {
         // skip interior sides
         if (neighbor && partSideActive(side, neighbor)) continue;
 
-        const sideGroup = sideGroups[i];
-        if (sideGroup) drawVisualElements(sideGroup, cellPos, pivot, rot);
+        const s = sideGroups[i];
+        if (s) drawVisualElements(s, cellPos, pivot, rot, stroke, fill);
       }
-
-      ctx.stroke();
     }
   }
 }
@@ -205,27 +211,66 @@ function drawVisualElements(
   pos: Vec2,
   pivot: Vec2,
   rot: number,
+  stroke: string = "#ffffff",
+  fill: string = "#ffffff",
 ) {
   const ctx = View.gfx();
 
-  for (const e of elems) {
-    if (e.type === "path" && e.points.length > 1) {
-      const start = vec2.add(
-        vec2.add(vec2.rotate(vec2.sub(e.points[0], pivot), rot), pivot),
-        pos,
-      );
-      const screenStart = View.worldToScreen(start);
+  ctx.strokeStyle = stroke;
+  ctx.fillStyle = fill;
+  ctx.beginPath();
 
+  for (const e of elems) {
+    const start = vec2.add(
+      vec2.add(vec2.rotate(vec2.sub(e.points[0], pivot), rot), pivot),
+      pos,
+    );
+    const screenStart = View.worldToScreen(start);
+
+    if (e.type === "path" && e.points.length > 1) {
       ctx.moveTo(screenStart.x, screenStart.y);
       for (const pt of e.points) {
         const point = vec2.add(vec2.rotate(vec2.sub(pt, pivot), rot), pivot);
         const screenPos = View.worldToScreen(vec2.add(point, pos));
         ctx.lineTo(screenPos.x, screenPos.y);
       }
+      ctx.stroke();
+    } else if (e.type === "poly" && e.points.length > 2) {
+      ctx.moveTo(screenStart.x, screenStart.y);
+      for (const pt of e.points) {
+        const point = vec2.add(vec2.rotate(vec2.sub(pt, pivot), rot), pivot);
+        const screenPos = View.worldToScreen(vec2.add(point, pos));
+        ctx.lineTo(screenPos.x, screenPos.y);
+      }
+      ctx.closePath();
+      ctx.fill();
     }
   }
 }
 
 function drawAsteroid() {}
+
+function drawBuildEffects() {
+  if (hoveredCell) {
+    drawVisualElements(
+      [
+        {
+          type: "poly",
+          points: [
+            vec2.create(0, 0),
+            vec2.create(1, 0),
+            vec2.create(1, 1),
+            vec2.create(0, 1),
+          ],
+        },
+      ],
+      vec2.sub(hoveredCell, vec2.create(4.5, 4.5)),
+      vec2.create(0.5, 0.5),
+      0,
+      "#000000",
+      "#ffffff09",
+    );
+  }
+}
 
 init();

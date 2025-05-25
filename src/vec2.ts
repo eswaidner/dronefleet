@@ -80,3 +80,7 @@ export function signedAngle(a: Vec2, b: Vec2): number {
 
   return Math.atan2(det(a, b), dot(a, b));
 }
+
+export function floor(a: Vec2): Vec2 {
+  return create(Math.floor(a.x), Math.floor(a.y));
+}

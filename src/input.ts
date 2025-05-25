@@ -72,6 +72,8 @@ function updateInput() {
   keyReleasesPrev = keyReleasesNext;
   keyPressesNext = kpp;
   keyReleasesNext = krp;
+
+  _pointerWorldPos = View.screenToWorld(_pointerScreenPos);
 }
 
 function getPointerPosition(e: PointerEvent, baseElement: HTMLElement): Vec2 {
